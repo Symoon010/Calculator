@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     var Screennumber:Double = 0;
     var Previousnumber:Double = 0;
+    var Operation = 0;
     var flag = false ;
     @IBOutlet weak var Outputlabel: UILabel!
     
@@ -19,7 +20,7 @@ class ViewController: UIViewController {
         {
             Outputlabel.text = String(sender.tag)
             Screennumber = Double(Outputlabel.text!)!
-            flag = false
+            flag = false;
         }
         else
         {
@@ -32,25 +33,57 @@ class ViewController: UIViewController {
         
         if (Outputlabel.text != "" && sender.tag != 11 && sender.tag != 12 &&  sender.tag != 17) //ignore Ac, Dot, Equal
         {
+            Previousnumber = Double(Outputlabel.text!)!
           
             if(sender.tag == 13) // Divide
             {
-                
+                Outputlabel.text = "/";
             }
             else if(sender.tag == 14) //Multiply
             
             {
-                
+                Outputlabel.text = "*";
             }
             else if(sender.tag == 15) //Subtract
             {
-                
+                Outputlabel.text = "-";
             }
             else if(sender.tag == 16) //Add
             {
-                
+                Outputlabel.text = "+";
             }
             flag = true ;
+            Operation = sender.tag;
+        }
+        
+        else if (sender.tag == 17)
+        {
+            if(Operation == 13)
+             {
+                Outputlabel.text = String(Previousnumber / Screennumber)
+             }
+            if(Operation == 14)
+            {
+                Outputlabel.text = String(Previousnumber * Screennumber)
+            }
+            if(Operation == 15)
+            {
+                Outputlabel.text = String(Previousnumber - Screennumber)
+            }
+            if(Operation == 16)
+            {
+                Outputlabel.text = String(Previousnumber + Screennumber)
+            }
+            
+        }
+        
+        else if(sender.tag == 11)
+        {
+            Previousnumber = 0;
+            Outputlabel.text = "";
+            Screennumber = 0;
+            Operation = 0;
+            
         }
         
     }
